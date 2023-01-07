@@ -14,7 +14,7 @@ model Vote {
     id            String   @id @default(cuid())
 
     voted_for     Int
-    voted_aganist Int
+    voted_against Int
 
     createdAt     DateTime @default(now())
 }
