@@ -6,12 +6,12 @@ import { PokemonClient } from "pokenode-ts";
 export const pokemonRoutes = createTRPCRouter({
   getPokemonById: publicProcedure
     .input(object({ id: number() }))
-    .query(({ input }) => {
+    .query(async ({ input }) => {
       const { id } = input;
 
       const api = new PokemonClient();
-      const pokemon = api.getPokemonById(id);
+      const pokemon = await api.getPokemonById(id);
 
-      return pokemon;
+      return { name: pokemon?.name, sprites: pokemon.sprites };
     }),
 });
