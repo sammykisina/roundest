@@ -6,16 +6,33 @@ import { api } from "../utils/api";
 import { app_utils } from "@/utils";
 import { useEffect, useState } from "react";
 
+import { PokemonClient } from "pokenode-ts";
+
 const Home: NextPage = () => {
   // const { data, isLoading } = api.example.hello.useQuery({ text: "from tRPC" });
   const { getRandomPokemon } = app_utils;
   const [first_id, setFirstId] = useState(0);
   const [second_id, setSecondId] = useState(0);
 
+  const first_pokemon = api.pokemon.getPokemonById.useQuery({
+    id: first_id,
+  });
+
+  const second_pokemon = api.pokemon.getPokemonById.useQuery({
+    id: second_id,
+  });
+
   useEffect(() => {
-    setFirstId(getRandomPokemon());
-    setSecondId(getRandomPokemon(first_id));
+    const first_pokemon_id = getRandomPokemon();
+    const second_pokemon_id = getRandomPokemon(first_pokemon_id);
+
+    if (first_pokemon_id && second_pokemon_id) {
+      setFirstId(getRandomPokemon());
+      setSecondId(getRandomPokemon(first_id));
+    }
   }, []);
+
+  if (first_pokemon.isLoading || second_pokemon.isLoading) return null;
 
   return (
     <>
@@ -31,13 +48,33 @@ const Home: NextPage = () => {
         <div className="p-2" />
 
         <div className="flex max-w-2xl items-center justify-between rounded border p-8 ">
-          <div className="h-16 w-16  bg-red-200">
-            {first_id ? first_id : ""}
+          <div className="flex h-64  w-64 flex-col">
+            <img
+              src={first_pokemon.data?.sprites?.front_default || ""}
+              className="w-full"
+              alt=""
+            />
+
+            <div className=" -mt-[2rem] text-center text-xl first-letter:uppercase">
+              {first_pokemon?.data?.name}
+            </div>
           </div>
+
           <div className="p-8">Vs</div>
-          <div className="h-16 w-16 bg-red-200">
-            {second_id ? second_id : ""}
+
+          <div className="flex h-64 w-64 flex-col ">
+            <img
+              src={second_pokemon.data?.sprites?.front_default || ""}
+              className="w-full"
+              alt=""
+            />
+
+            <div className=" -mt-[2rem] text-center text-xl first-letter:uppercase">
+              {second_pokemon?.data?.name}
+            </div>
           </div>
+
+          <div className="p-2"></div>
         </div>
       </main>
     </>

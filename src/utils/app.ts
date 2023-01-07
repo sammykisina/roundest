@@ -9,6 +9,13 @@ const getRandomPokemon: (not_this_one?: number) => number = (
   return getRandomPokemon(not_this_one);
 };
 
+// const getOptionsForVote = () => {
+//   const first_id = getRandomPokemon();
+//   const second_id = getRandomPokemon(first_id);
+
+//   return [first_id, second_id];
+// };
+
 const app_utils = {
   getRandomPokemon,
 };
