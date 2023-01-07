@@ -4,9 +4,11 @@ import Link from "next/link";
 
 import { api } from "../utils/api";
 import { app_utils } from "@/utils";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { PokemonClient } from "pokenode-ts";
+import { inferQueryResponse } from "src/server/api/trpc";
+import { SpinnerLoader } from "@/components";
 
 const Home: NextPage = () => {
   // const { data, isLoading } = api.example.hello.useQuery({ text: "from tRPC" });
@@ -44,7 +46,7 @@ const Home: NextPage = () => {
     setPokemonIds(first_pokemon_id, second_pokemon_id);
   };
 
-  if (first_pokemon.isLoading || second_pokemon.isLoading) return null;
+  // if (first_pokemon.isLoading || second_pokemon.isLoading) return null;
 
   return (
     <>
@@ -60,39 +62,54 @@ const Home: NextPage = () => {
         <div className="p-2" />
 
         <div className="flex max-w-2xl items-center justify-between rounded border px-8 py-10">
-          <div className="flex h-64  w-64 flex-col items-center">
-            <img
-              src={first_pokemon.data?.sprites?.front_default || ""}
-              className="w-full"
-              alt=""
-            />
+          {!first_pokemon.isLoading &&
+          first_pokemon.data &&
+          !second_pokemon.isLoading &&
+          second_pokemon.data ? (
+            <>
+              <div className="flex flex-col items-center">
+                <img
+                  src={first_pokemon.data?.sprites?.front_default || ""}
+                  className="h-64 w-64 "
+                  alt=""
+                />
 
-            <div className=" -mt-[2rem] text-center text-xl first-letter:uppercase">
-              {first_pokemon?.data?.name}
-            </div>
+                <div className=" -mt-[2rem] text-center text-xl first-letter:uppercase">
+                  {first_pokemon?.data?.name}
+                </div>
 
-            <button onClick={() => voteForRoundest(first_id)} className="btn">
-              Roundest
-            </button>
-          </div>
+                <button
+                  onClick={() => voteForRoundest(first_id)}
+                  className="btn"
+                >
+                  Roundest
+                </button>
+              </div>
 
-          <div className="p-8">Vs</div>
+              <div className="p-8">Vs</div>
 
-          <div className="flex h-64 w-64 flex-col items-center ">
-            <img
-              src={second_pokemon.data?.sprites?.front_default || ""}
-              className="w-full"
-              alt=""
-            />
+              <div className="flex flex-col items-center ">
+                <img
+                  src={second_pokemon.data?.sprites?.front_default || ""}
+                  className="h-64  w-64 "
+                  alt=""
+                />
 
-            <div className=" -mt-[2rem] text-center text-xl first-letter:uppercase">
-              {second_pokemon?.data?.name}
-            </div>
+                <div className=" -mt-[2rem] text-center text-xl first-letter:uppercase">
+                  {second_pokemon?.data?.name}
+                </div>
 
-            <button onClick={() => voteForRoundest(second_id)} className="btn">
-              Roundest
-            </button>
-          </div>
+                <button
+                  onClick={() => voteForRoundest(second_id)}
+                  className="btn"
+                >
+                  Roundest
+                </button>
+              </div>
+            </>
+          ) : (
+            <SpinnerLoader color="fill-white" />
+          )}
 
           <div className="p-2"></div>
         </div>

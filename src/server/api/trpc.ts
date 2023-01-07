@@ -52,8 +52,9 @@ export const createTRPCContext = async (_opts: CreateNextContextOptions) => {
  * This is where the trpc api is initialized, connecting the context and
  * transformer
  */
-import { initTRPC } from "@trpc/server";
+import { inferProcedureOutput, initTRPC } from "@trpc/server";
 import superjson from "superjson";
+import { AppRouter } from "./root";
 
 const t = initTRPC
   .context<Awaited<ReturnType<typeof createTRPCContext>>>()
@@ -85,3 +86,7 @@ export const createTRPCRouter = t.router;
  * can still access user session data if they are logged in
  */
 export const publicProcedure = t.procedure;
+
+export type inferQueryResponse<
+  TRouteKey extends keyof AppRouter["_def"]["router"]
+> = inferProcedureOutput<AppRouter["_def"]["router"]>;
