@@ -1,13 +1,9 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-
 import { api } from "../utils/api";
 import { app_utils } from "@/utils";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { PokemonClient } from "pokenode-ts";
-import { inferQueryResponse } from "src/server/api/trpc";
 import { SpinnerLoader } from "@/components";
 
 const Home: NextPage = () => {
@@ -40,7 +36,7 @@ const Home: NextPage = () => {
 
   const { mutateAsync } = api.pokemon.voteForPokemon.useMutation({
     onSuccess: () => {
-      console.log("voted created");
+      // console.log("voted created");
     },
     onError: (error) => {
       console.log("error", error);
@@ -48,10 +44,6 @@ const Home: NextPage = () => {
   });
 
   const voteForRoundest = (selected_pokemon_id: number) => {
-    console.log("selected_pokemon_id", selected_pokemon_id);
-    console.log("first_id", first_id);
-    console.log("second_id", second_id);
-
     // voting
     if (selected_pokemon_id === first_id) {
       mutateAsync({
