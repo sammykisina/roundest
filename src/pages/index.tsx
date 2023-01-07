@@ -86,7 +86,7 @@ const Home: NextPage = () => {
               <>
                 <div className="flex flex-col items-center">
                   <Image
-                    src={first_pokemon.data?.sprites?.front_default || ""}
+                    src={first_pokemon.data.spriteUrl}
                     width={256}
                     height={256}
                     alt=""
@@ -108,12 +108,12 @@ const Home: NextPage = () => {
                 <div className="p-8">Vs</div>
 
                 <div className="flex flex-col items-center ">
-                  <img
-                    src={second_pokemon.data?.sprites?.front_default || ""}
-                    className="h-64  w-64 "
+                  <Image
+                    src={second_pokemon.data.spriteUrl}
+                    width={256}
+                    height={256}
                     alt=""
                   />
-
                   <div className=" -mt-[2rem] text-center text-xl first-letter:uppercase">
                     {second_pokemon?.data?.name}
                   </div>

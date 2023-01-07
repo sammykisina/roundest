@@ -9,11 +9,13 @@ export const pokemonRoutes = createTRPCRouter({
     .input(object({ id: number() }))
     .query(async ({ input }) => {
       const { id } = input;
+      const pokemon = await prisma?.pokemon.findFirst({
+        where: { id: input.id },
+      });
 
-      const pokeApiInstance = new PokemonClient();
-      const pokemon = await pokeApiInstance.getPokemonById(id);
+      if (!pokemon) throw new Error("lol doe's exits");
 
-      return { name: pokemon?.name, sprites: pokemon.sprites };
+      return pokemon;
     }),
 
   voteForPokemon: publicProcedure
