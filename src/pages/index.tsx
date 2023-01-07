@@ -38,15 +38,39 @@ const Home: NextPage = () => {
     }
   }, []);
 
+  const { mutateAsync } = api.pokemon.voteForPokemon.useMutation({
+    onSuccess: () => {
+      console.log("voted created");
+    },
+    onError: (error) => {
+      console.log("error", error);
+    },
+  });
+
   const voteForRoundest = (selected_pokemon_id: number) => {
+    console.log("selected_pokemon_id", selected_pokemon_id);
+    console.log("first_id", first_id);
+    console.log("second_id", second_id);
+
+    // voting
+    if (selected_pokemon_id === first_id) {
+      mutateAsync({
+        voted_for: first_id,
+        voted_against: second_id,
+      });
+    } else {
+      mutateAsync({
+        voted_for: second_id,
+        voted_against: first_id,
+      });
+    }
+
     // set new pokemons
     const first_pokemon_id = getRandomPokemon();
     const second_pokemon_id = getRandomPokemon(first_pokemon_id);
 
     setPokemonIds(first_pokemon_id, second_pokemon_id);
   };
-
-  // if (first_pokemon.isLoading || second_pokemon.isLoading) return null;
 
   return (
     <>

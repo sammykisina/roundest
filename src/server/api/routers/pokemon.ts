@@ -24,8 +24,8 @@ export const pokemonRoutes = createTRPCRouter({
 
       return await prisma.vote.create({
         data: {
-          voted_against,
-          voted_for,
+          voted_against: voted_against,
+          voted_for: voted_for,
         },
       });
     }),
