@@ -6,4 +6,8 @@
   body {
     @apply bg-gray-800 text-white;
   }
+
+  .btn {
+    @apply mt-1 rounded-md bg-white px-2 py-1 text-center text-gray-800;
+  }
 }

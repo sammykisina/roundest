@@ -22,15 +22,27 @@ const Home: NextPage = () => {
     id: second_id,
   });
 
+  const setPokemonIds = (first_id: number, second_id: number) => {
+    setFirstId(first_id);
+    setSecondId(second_id);
+  };
+
   useEffect(() => {
     const first_pokemon_id = getRandomPokemon();
     const second_pokemon_id = getRandomPokemon(first_pokemon_id);
 
     if (first_pokemon_id && second_pokemon_id) {
-      setFirstId(getRandomPokemon());
-      setSecondId(getRandomPokemon(first_id));
+      setPokemonIds(first_pokemon_id, second_pokemon_id);
     }
   }, []);
+
+  const voteForRoundest = (selected_pokemon_id: number) => {
+    // set new pokemons
+    const first_pokemon_id = getRandomPokemon();
+    const second_pokemon_id = getRandomPokemon(first_pokemon_id);
+
+    setPokemonIds(first_pokemon_id, second_pokemon_id);
+  };
 
   if (first_pokemon.isLoading || second_pokemon.isLoading) return null;
 
@@ -47,8 +59,8 @@ const Home: NextPage = () => {
 
         <div className="p-2" />
 
-        <div className="flex max-w-2xl items-center justify-between rounded border p-8 ">
-          <div className="flex h-64  w-64 flex-col">
+        <div className="flex max-w-2xl items-center justify-between rounded border px-8 py-10">
+          <div className="flex h-64  w-64 flex-col items-center">
             <img
               src={first_pokemon.data?.sprites?.front_default || ""}
               className="w-full"
@@ -58,11 +70,15 @@ const Home: NextPage = () => {
             <div className=" -mt-[2rem] text-center text-xl first-letter:uppercase">
               {first_pokemon?.data?.name}
             </div>
+
+            <button onClick={() => voteForRoundest(first_id)} className="btn">
+              Roundest
+            </button>
           </div>
 
           <div className="p-8">Vs</div>
 
-          <div className="flex h-64 w-64 flex-col ">
+          <div className="flex h-64 w-64 flex-col items-center ">
             <img
               src={second_pokemon.data?.sprites?.front_default || ""}
               className="w-full"
@@ -72,6 +88,10 @@ const Home: NextPage = () => {
             <div className=" -mt-[2rem] text-center text-xl first-letter:uppercase">
               {second_pokemon?.data?.name}
             </div>
+
+            <button onClick={() => voteForRoundest(second_id)} className="btn">
+              Roundest
+            </button>
           </div>
 
           <div className="p-2"></div>
