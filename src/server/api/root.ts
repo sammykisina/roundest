@@ -1,5 +1,4 @@
 import { createTRPCRouter } from "./trpc";
-import { exampleRouter } from "./routers/example";
 import { pokemonRoutes } from "./routers/pokemon";
 
 /**
@@ -8,7 +7,6 @@ import { pokemonRoutes } from "./routers/pokemon";
  * All routers added in /api/routers should be manually added here
  */
 export const appRouter = createTRPCRouter({
-  example: exampleRouter,
   pokemon: pokemonRoutes,
 });
 
