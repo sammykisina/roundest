@@ -10,8 +10,8 @@ export const pokemonRoutes = createTRPCRouter({
     .query(async ({ input }) => {
       const { id } = input;
 
-      const api = new PokemonClient();
-      const pokemon = await api.getPokemonById(id);
+      const pokeApiInstance = new PokemonClient();
+      const pokemon = await pokeApiInstance.getPokemonById(id);
 
       return { name: pokemon?.name, sprites: pokemon.sprites };
     }),
