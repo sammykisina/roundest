@@ -2,12 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Nunito";
+  src: url("../assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf");
+  font-family: 500;
+}
+
 @layer base {
+  * {
+    @apply font-nunito;
+  }
+
   body {
     @apply bg-gray-800 text-white;
   }
 
   .btn {
     @apply mt-1 rounded-md bg-white px-2 py-1 text-center text-gray-800;
+  }
+
+  /* Modifying the scroll bar */
+  ::-webkit-scrollbar {
+    width: 16px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #edf2f7;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 100vh;
+    border: 3px solid #edf2f7;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
   }
 }
