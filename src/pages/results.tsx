@@ -35,12 +35,24 @@ type PokemonListingProps = {
   pokemon: PokemonQueryResult[number];
 };
 
+const generateCountPercent = (pokemon: PokemonQueryResult[number]) => {
+  const { VoteAgainst, VoteFor } = pokemon._count;
+  if (VoteFor + VoteAgainst === 0) {
+    return 0;
+  }
+  return (VoteFor / (VoteFor + VoteAgainst)) * 100;
+};
+
 const PokemonListing: FC<PokemonListingProps> = ({ pokemon }) => {
   return (
-    <div className="flex  items-center border-b p-2">
-      <Image src={pokemon.spriteUrl} width={64} height={64} alt="" />
+    <div className="flex  items-center justify-between border-b p-2">
+      <div className="flex items-center ">
+        <Image src={pokemon.spriteUrl} width={64} height={64} alt="" />
 
-      <div className="capitalize">{pokemon.name}</div>
+        <div className="capitalize">{pokemon.name}</div>
+      </div>
+
+      <div className="pr-4">{generateCountPercent(pokemon) + "%"}</div>
     </div>
   );
 };
