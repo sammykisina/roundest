@@ -52,27 +52,31 @@ const PokemonListing: FC<PokemonListingProps> = ({ pokemon }) => {
         <div className="capitalize">{pokemon.name}</div>
       </div>
 
-      <div className="pr-4">{generateCountPercent(pokemon) + "%"}</div>
+      <div className="pr-4">
+        {generateCountPercent(pokemon).toFixed(2) + "%"}
+      </div>
     </div>
   );
 };
 
 const Results: FC<ResultProps> = ({ pokemon }) => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center px-5">
       <h2 className="p-4 text-2xl">Results</h2>
 
       <div className="p-2" />
 
       <div className="flex w-full max-w-2xl flex-col border">
-        {pokemon?.map((single_pokemon, single_pokemon_index) => {
-          return (
-            <PokemonListing
-              key={single_pokemon_index}
-              pokemon={single_pokemon}
-            />
-          );
-        })}
+        {pokemon
+          ?.sort((a, b) => generateCountPercent(b) - generateCountPercent(a))
+          .map((single_pokemon, single_pokemon_index) => {
+            return (
+              <PokemonListing
+                key={single_pokemon_index}
+                pokemon={single_pokemon}
+              />
+            );
+          })}
       </div>
     </div>
   );
