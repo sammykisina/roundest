@@ -19,7 +19,7 @@
     "paths": {
       "@/components": ["src/components"],
       // "@/constants": ["src/constants"],
-      // "@/assets": ["src/assets"],
+      "@/assets": ["src/assets"],
       // "@/routes": ["src/routes"],
       // "@/hooks": ["src/hooks"],
       // "@/atoms": ["src/atoms"],
