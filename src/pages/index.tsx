@@ -17,8 +17,6 @@ const Home: NextPage = () => {
     id: first_id,
   });
 
-  console.log("first_pokemon", first_pokemon);
-
   const second_pokemon = api.pokemon.getPokemonById.useQuery({
     id: second_id,
   });
@@ -67,6 +65,12 @@ const Home: NextPage = () => {
     setPokemonIds(first_pokemon_id, second_pokemon_id);
   };
 
+  const data_loaded =
+    !first_pokemon.isLoading &&
+    first_pokemon.data &&
+    !second_pokemon.isLoading &&
+    second_pokemon.data;
+
   return (
     <>
       <Head>
@@ -81,14 +85,11 @@ const Home: NextPage = () => {
           <div className="p-2" />
 
           <div className="flex max-w-2xl items-center justify-between rounded border px-8 py-10">
-            {!first_pokemon.isLoading &&
-            first_pokemon.data &&
-            !second_pokemon.isLoading &&
-            second_pokemon.data ? (
+            {data_loaded ? (
               <>
                 <div className="flex flex-col items-center">
                   <Image
-                    src={first_pokemon.data.spriteUrl}
+                    src={first_pokemon?.data?.spriteUrl || ""}
                     width={256}
                     height={256}
                     alt=""
@@ -110,7 +111,7 @@ const Home: NextPage = () => {
 
                 <div className="flex flex-col items-center ">
                   <Image
-                    src={second_pokemon.data.spriteUrl}
+                    src={second_pokemon?.data?.spriteUrl || ""}
                     width={256}
                     height={256}
                     alt=""
