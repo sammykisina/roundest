@@ -17,6 +17,8 @@ const Home: NextPage = () => {
     id: first_id,
   });
 
+  console.log("first_pokemon", first_pokemon);
+
   const second_pokemon = api.pokemon.getPokemonById.useQuery({
     id: second_id,
   });

@@ -16,6 +16,7 @@ const getRandomPokemon: (not_this_one?: number) => number = (
 //   return [first_id, second_id];
 // };
 
+
 const app_utils = {
   getRandomPokemon,
 };
