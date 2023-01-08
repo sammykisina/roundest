@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { SpinnerLoader } from "@/components";
 import Image from "next/image";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const { getRandomPokemon } = app_utils;
@@ -132,7 +133,8 @@ const Home: NextPage = () => {
           </div>
 
           <div className="absolute bottom-0 mb-3 text-xl text-white">
-            <a href="https://github.com/sammykisina/roundest">Github</a>
+            <a href="https://github.com/sammykisina/roundest">Github</a> {" | "}
+            <Link href="/results">Results</Link>
           </div>
         </div>
       </main>

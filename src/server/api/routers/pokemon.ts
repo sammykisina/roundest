@@ -11,7 +11,7 @@ export const pokemonRoutes = createTRPCRouter({
         where: { id: id },
       });
 
-      if (!pokemon) throw new Error("lol doe's exits");
+      // if (!pokemon) throw new Error("lol doe's exits");
 
       return pokemon;
     }),
