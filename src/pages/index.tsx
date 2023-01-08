@@ -8,7 +8,6 @@ import { SpinnerLoader } from "@/components";
 import Image from "next/image";
 
 const Home: NextPage = () => {
-  // const { data, isLoading } = api.example.hello.useQuery({ text: "from tRPC" });
   const { getRandomPokemon } = app_utils;
   const [first_id, setFirstId] = useState(0);
   const [second_id, setSecondId] = useState(0);
@@ -91,7 +90,6 @@ const Home: NextPage = () => {
                     height={256}
                     alt=""
                   />
-                  {/* <img className="h-64 w-64 " alt="" /> */}
 
                   <div className=" -mt-[2rem] text-center text-xl first-letter:uppercase">
                     {first_pokemon?.data?.name}
